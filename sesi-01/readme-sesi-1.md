@@ -1,0 +1,42 @@
+# SESI I
+
+## Summary
+
+- command:
+  - go mod init _nama-project_ >> create module
+  - touch _namafile.go_ >> create file golang
+  - go run _namafile.go_ >> run golang file
+  - go build -o _namafile.exe_ >> membutuhkan module, untuk meng-compile file
+- function & syntax:
+  - Print() mencetak teks tanpa baris baru
+  - Println() mencetak teks dengan baris baru
+  - package _nama-package_ >> mendefinisikan package
+  - import _nama-module_ >> meng-import module
+  - var _nama-variable_ _data-type_ >> deklarasi variable dengan data type
+  - _nama-variable_ := _value_ or var _nama-variable_ >> deklarasi variable tanpa data type, membantu mempermudah membuat variable, harus langsung memberi value pada variablenya.
+  - var _nama-var-1_, _nama-var-2_, _nama-var-3_ _data-type_ = _value-1_, _value-2_, _value-3_ >> multiple variable declaration
+  - underscore variable untuk menanggulangi variable yang tidak dipakai
+- data-type:
+  - Number:
+    - Integer:
+      - int >> bilangan positif >> int8, int16, int32
+      - uint >> bilangan positif & negatif >> uint8, uint16, uint32
+      - verb %d
+    - Float:
+      - float32, float64
+      - verb %f >> jumlah digit = 6
+      - verb %.nf >> n = jumlah digit
+  - Bool:
+    - nilai: true, false
+    - verb %t
+  - String:
+    - diapit tanda quote ("")
+    - diapit grave accent/backtick (``) mendeteksi escape character
+  - Nil & Zero value:
+    - Zero value: string(""), bool(false), integer(0), integer(0.0)
+    - Nil value: pointer, data-type function, slice, map, channel, interface kosong
+- const >> tidak dapat diubah
+- operator:
+  - aritmatik: +, -, \*, /, %, ++, --
+  - relational: ==, !=, >, <, >=, <=
+  - logical: &&, ||, !
