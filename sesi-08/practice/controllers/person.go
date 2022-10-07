@@ -103,9 +103,8 @@ func (idb *InDB) UpdatePerson(c *gin.Context) {
 
 func (idb *InDB) DeletePerson(c *gin.Context) {
 	var (
-		person    structs.Person
-		newPerson structs.Person
-		result    gin.H
+		person structs.Person
+		result gin.H
 	)
 	id := c.Param("id")
 	err := idb.DB.First(&person, id).Error
@@ -114,7 +113,7 @@ func (idb *InDB) DeletePerson(c *gin.Context) {
 			"result": "data not found",
 		}
 	}
-	err = idb.DB.Model(&person).Updates(newPerson).Error
+	err = idb.DB.Delete(&person).Error
 	if err != nil {
 		result = gin.H{
 			"result": "delete failed",
