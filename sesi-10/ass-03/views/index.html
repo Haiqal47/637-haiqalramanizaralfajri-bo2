@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Cuaca</title>
+</head>
+<body>
+    <ul>
+        <li>Water: <span id="water"></span></li>
+        <li>Wind: <span id="wind"></span></li>
+        <h2>Water Status: <span id="waterStatus"></span></h2>
+        <h2>Wind Status: <span id="windStatus"></span></h2>
+    </ul>
+    <script>
+        function getStatus() {
+            fetch('http://localhost:8080/shuffle')
+                .then((response) => response.json())
+                .then((data) => {
+                    water = document.getElementById('water')
+                    wind = document.getElementById('wind')
+                    waterStatus = document.getElementById('waterStatus')
+                    windStatus = document.getElementById('windStatus')
+
+                    waterText = ''
+                    windText = ''
+
+                    water.textContent = data.status.water
+                    wind.textContent = data.status.wind
+                    if(data.status.water > 8) {
+                        waterText = 'bahaya'
+                    } else if(data.status.water >= 6 && data.status.water <= 8) {
+                        waterText = 'siaga'
+                    } else if (data.status.water < 6) {
+                        waterText = 'aman'
+                    }
+
+                    if(data.status.wind > 15) {
+                        windText = 'bahaya'
+                    } else if(data.status.wind >= 7 && data.status.wind <= 15) {
+                        windText = 'siaga'
+                    } else if (data.status.wind < 7) {
+                        windText = 'aman'
+                    }
+
+                    waterStatus.textContent = waterText
+                    windStatus.textContent = windText
+                })
+                .catch((error) => {
+                    console.log("error");
+                    console.log(error);
+                })
+        }
+        getStatus()
+        setInterval(getStatus, 5000)
+    </script>
+</body>
+</html>
