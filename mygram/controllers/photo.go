@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/dranikpg/dto-mapper"
@@ -36,10 +37,47 @@ func CreatePhoto(ctx *gin.Context) {
 	db := ctx.MustGet("db").(*gorm.DB)
 
 	file, err := ctx.FormFile("photo")
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	fileHeader := make([]byte, 512)
+	fileOpen, err := file.Open()
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	defer fileOpen.Close()
+
+	if _, err = fileOpen.Read(fileHeader); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	filetype := http.DetectContentType(fileHeader)
+
+	if !strings.Contains(filetype, "image/") {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "File not image",
+		})
+		return
+	}
+
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Image not found",
 		})
+		return
 	}
 
 	// get userData
@@ -162,10 +200,39 @@ func UpdatePhoto(ctx *gin.Context) {
 	db := ctx.MustGet("db").(*gorm.DB)
 
 	file, err := ctx.FormFile("photo")
+
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Image not found",
 		})
+	}
+
+	fileHeader := make([]byte, 512)
+	fileOpen, err := file.Open()
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	defer fileOpen.Close()
+
+	if _, err = fileOpen.Read(fileHeader); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	filetype := http.DetectContentType(fileHeader)
+
+	if !strings.Contains(filetype, "image/") {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "File not image",
+		})
+		return
 	}
 
 	// get userData

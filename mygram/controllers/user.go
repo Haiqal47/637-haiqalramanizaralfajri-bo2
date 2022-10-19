@@ -42,10 +42,40 @@ func Register(ctx *gin.Context) {
 
 	// Get Photo from Form Data
 	file, err := ctx.FormFile("profile_image")
+
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Image not found",
 		})
+		return
+	}
+
+	fileHeader := make([]byte, 512)
+	fileOpen, err := file.Open()
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	defer fileOpen.Close()
+
+	if _, err = fileOpen.Read(fileHeader); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	filetype := http.DetectContentType(fileHeader)
+
+	if !strings.Contains(filetype, "image/") {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "File not image",
+		})
+		return
 	}
 
 	// Parsing from request body to Order Model
@@ -214,10 +244,40 @@ func UpdateUser(ctx *gin.Context) {
 	db := ctx.MustGet("db").(*gorm.DB)
 
 	file, err := ctx.FormFile("profile_image")
+
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Image not found",
 		})
+		return
+	}
+
+	fileHeader := make([]byte, 512)
+	fileOpen, err := file.Open()
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	defer fileOpen.Close()
+
+	if _, err = fileOpen.Read(fileHeader); err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+			"message": "Image not found",
+		})
+		return
+	}
+
+	filetype := http.DetectContentType(fileHeader)
+
+	if !strings.Contains(filetype, "image/") {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "File not image",
+		})
+		return
 	}
 
 	// Parsing from request body to Order Model

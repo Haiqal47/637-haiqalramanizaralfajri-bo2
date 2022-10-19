@@ -40,6 +40,7 @@ func CreateSocialMedia(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Error decode request body",
 		})
+		return
 	}
 
 	socialMedia.UserId = claims.ID

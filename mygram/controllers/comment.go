@@ -40,6 +40,7 @@ func CreateComment(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"message": "Error decode request body",
 		})
+		return
 	}
 
 	comment.UserId = claims.ID
