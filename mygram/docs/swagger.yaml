@@ -1,0 +1,655 @@
+definitions:
+  structs.RequestCreateComment:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    type: object
+  structs.RequestCreateSocialMedia:
+    properties:
+      name:
+        type: string
+      social_media_url:
+        type: string
+    type: object
+  structs.RequestLogin:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  structs.RequestUpdateComment:
+    properties:
+      message:
+        type: string
+    type: object
+  structs.RequestUpdateSocialMedia:
+    properties:
+      name:
+        type: string
+      social_media_url:
+        type: string
+    type: object
+  structs.Response:
+    properties:
+      message:
+        type: string
+    type: object
+  structs.ResponseComments:
+    properties:
+      Photo:
+        properties:
+          caption:
+            type: string
+          id:
+            type: integer
+          photo_url:
+            type: string
+          title:
+            type: string
+          user_id:
+            type: integer
+        type: object
+      User:
+        properties:
+          email:
+            type: string
+          id:
+            type: integer
+          username:
+            type: string
+        type: object
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseCreateComment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseCreatePhoto:
+    properties:
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseCreateSocialMedia:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponsePhotos:
+    properties:
+      User:
+        properties:
+          email:
+            type: string
+          username:
+            type: string
+        type: object
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseSocialMedia:
+    properties:
+      User:
+        properties:
+          id:
+            type: integer
+          profile_image_url:
+            type: string
+          username:
+            type: string
+        type: object
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseUpdateComment:
+    properties:
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseUpdateSocialMedia:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  structs.ResponseUserLogin:
+    properties:
+      token:
+        type: string
+    type: object
+  structs.ResponseUserRegister:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      username:
+        type: string
+    type: object
+  structs.ResponseUserUpdate:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      id:
+        type: integer
+      profile_image_url:
+        type: string
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is API Documentation for MyGram
+  title: MyGram API
+  version: "1.0"
+paths:
+  /comments:
+    get:
+      consumes:
+      - application/json
+      description: Get All Comment with user data and photo data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/structs.ResponseComments'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get All Comment
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: Create data comment to database
+      parameters:
+      - description: Create Comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/structs.RequestCreateComment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseCreateComment'
+      security:
+      - BearerAuth: []
+      summary: Create Comment
+      tags:
+      - comments
+  /photos:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create data photo to database
+      parameters:
+      - description: Photo
+        in: formData
+        name: photo
+        required: true
+        type: file
+      - description: Title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Caption
+        in: formData
+        name: caption
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseCreatePhoto'
+      security:
+      - BearerAuth: []
+      summary: Create Photo
+      tags:
+      - photos
+  /photos/:
+    get:
+      consumes:
+      - application/json
+      description: Get All Photo with user data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/structs.ResponsePhotos'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get All Photo
+      tags:
+      - photos
+  /photos/{commentId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data comment
+      parameters:
+      - description: ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete Comment
+      tags:
+      - comments
+    put:
+      consumes:
+      - application/json
+      description: Update data Comment
+      parameters:
+      - description: ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      - description: Update Comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/structs.RequestUpdateComment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUpdateComment'
+      security:
+      - BearerAuth: []
+      summary: Update Comment
+      tags:
+      - comments
+  /photos/{photoId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data photo
+      parameters:
+      - description: ID
+        in: path
+        name: photoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete photo
+      tags:
+      - photos
+    put:
+      consumes:
+      - multipart/form-data
+      description: Update data Photo
+      parameters:
+      - description: ID
+        in: path
+        name: photoId
+        required: true
+        type: integer
+      - description: Photo
+        in: formData
+        name: photo
+        required: true
+        type: file
+      - description: Title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Caption
+        in: formData
+        name: caption
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUpdateComment'
+      security:
+      - BearerAuth: []
+      summary: Update Photo
+      tags:
+      - photos
+  /socialmedias:
+    get:
+      consumes:
+      - application/json
+      description: Get All Social Media with user data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/structs.ResponseSocialMedia'
+            type: array
+      security:
+      - BearerAuth: []
+      summary: Get All Social Media
+      tags:
+      - socialMedias
+    post:
+      consumes:
+      - application/json
+      description: Create data Social Media to database
+      parameters:
+      - description: Create Social Media
+        in: body
+        name: socialMedia
+        required: true
+        schema:
+          $ref: '#/definitions/structs.RequestCreateSocialMedia'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseCreateSocialMedia'
+      security:
+      - BearerAuth: []
+      summary: Create Social Media
+      tags:
+      - socialMedias
+  /socialmedias/{socialMediaId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data Social Media
+      parameters:
+      - description: ID
+        in: path
+        name: socialMediaId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete Social Media
+      tags:
+      - socialMedias
+    put:
+      consumes:
+      - application/json
+      description: Update data Social media
+      parameters:
+      - description: ID
+        in: path
+        name: socialMediaId
+        required: true
+        type: integer
+      - description: Update Social Media
+        in: body
+        name: socialMedia
+        required: true
+        schema:
+          $ref: '#/definitions/structs.RequestUpdateSocialMedia'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUpdateSocialMedia'
+      security:
+      - BearerAuth: []
+      summary: Update Social media
+      tags:
+      - socialMedias
+  /users/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete data user
+      parameters:
+      - description: ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.Response'
+      security:
+      - BearerAuth: []
+      summary: Delete user
+      tags:
+      - users
+    put:
+      consumes:
+      - multipart/form-data
+      description: Update data User
+      parameters:
+      - description: ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: Profile Image
+        in: formData
+        name: profile_image
+        required: true
+        type: file
+      - description: Username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: Email
+        in: formData
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUserUpdate'
+      security:
+      - BearerAuth: []
+      summary: Update User
+      tags:
+      - users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login User using email and password
+      parameters:
+      - description: Login user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/structs.RequestLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUserLogin'
+      summary: Login User
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Register New User with photo profile
+      parameters:
+      - description: Profile Image
+        in: formData
+        name: profile_image
+        required: true
+        type: file
+      - description: Username
+        in: formData
+        name: username
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      - description: Email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: Age
+        in: formData
+        name: age
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structs.ResponseUserRegister'
+      summary: Registration User
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
