@@ -54,7 +54,7 @@ profile_image:file
 
 ### Update Users
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `PUT`
 - Endpoint : `/users/{userId}`
 - Accept : `multipart/form-data`
@@ -82,7 +82,7 @@ profile_image:file
 
 ### Delete Users
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `DELETE`
 - Endpoint : `/users/{userId}`
 - Content-Type: `application/json`
@@ -98,7 +98,7 @@ profile_image:file
 
 ### Create Photos
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `POST`
 - Endpoint : `/photos`
 - Accept : `multipart/form-data`
@@ -126,7 +126,7 @@ photo:file
 
 ### Get Photos
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `GET`
 - Endpoint : `/photos`
 - Content-Type: `application/json`
@@ -152,7 +152,7 @@ photo:file
 
 ### Update Photos
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `PUT`
 - Endpoint : `/photos/{photoId}`
 - Accept : `multipart/form-data`
@@ -179,7 +179,7 @@ photo:file
 
 ### Delete Photos
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `DELETE`
 - Endpoint : `/photos/{photoId}`
 - Content-Type: `application/json`
@@ -196,7 +196,7 @@ photo:file
 
 ### Create Comments
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `POST`
 - Endpoint : `/comments`
 - Accept : `application/json`
@@ -224,7 +224,7 @@ photo:file
 
 ### Get Comments
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `GET`
 - Endpoint : `/comments`
 - Content-Type: `application/json`
@@ -257,7 +257,7 @@ photo:file
 
 ### Update Comments
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `PUT`
 - Endpoint : `/comments/{commentId}`
 - Accept : `application/json`
@@ -284,7 +284,7 @@ photo:file
 
 ### Delete Comments
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `DELETE`
 - Endpoint : `/comments/{commentId}`
 - Content-Type: `application/json`
@@ -301,7 +301,7 @@ photo:file
 
 ### Create Social Medias
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `POST`
 - Endpoint : `/socialmedias`
 - Accept : `application/json`
@@ -329,7 +329,7 @@ photo:file
 
 ### Get Social Medias
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `GET`
 - Endpoint : `/socialmedias`
 - Content-Type: `application/json`
@@ -355,7 +355,7 @@ photo:file
 
 ### Update Social Medias
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `PUT`
 - Endpoint : `/socialmedias/{socialMediaId}`
 - Accept : `application/json`
@@ -383,7 +383,7 @@ photo:file
 
 ### Delete Social Medias
 
-- Authorization: Bearer \<Token\>
+- Authorization: `Bearer \<Token\>`
 - Method: `DELETE`
 - Endpoint : `/socialmedias/{socialMediaId}`
 - Content-Type: `application/json`
