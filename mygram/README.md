@@ -81,6 +81,10 @@ go run main.go
 | Update social media | http://localhost:8080/socialmedias/{id} | PUT    | [Open](./API-SPEC.md#update-social-medias) |
 | Delete social media | http://localhost:8080/socialmedias/{id} | DELETE | [Open](./API-SPEC.md#delete-social-medias) |
 
+# Entity Relational Diagram
+
+![ERD](./erd.png)
+
 # About Me
 
 - Nama: Haiqal Ramanizar Al Fajri
